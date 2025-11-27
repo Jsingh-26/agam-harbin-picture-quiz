@@ -1,0 +1,52 @@
+name: EAS Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Platform to build for'
+        required: true
+        default: 'android'
+        type: choice
+        options:
+          - android
+          - ios
+
+jobs:
+  build:
+    name: EAS Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for EXPO_TOKEN
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "Error: EXPO_TOKEN secret is not set"
+            echo "Please add your Expo token in Repository Secrets"
+            exit 1
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Expo and EAS
+        uses: expo-github-action/setup-expo@2
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build on EAS
+        run: eas build --platform ${{ inputs.platform }} --profile preview --non-interactive
+
+      - name: Get build URL
+        run: |
+          echo "Build completed!"
+          echo "Check your Expo dashboard for the APK download link"
