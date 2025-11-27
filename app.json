@@ -4,16 +4,12 @@
     "slug": "agam-harbin-quiz",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.agamharbin.picturequiz"
