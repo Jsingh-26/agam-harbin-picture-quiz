@@ -1,4 +1,3 @@
-```jsx
 import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
@@ -399,4 +398,3 @@ const styles = StyleSheet.create({
   },
   feedbackText: { color: '#fff', fontSize: 24, fontWeight: 'bold' },
 });
-```
